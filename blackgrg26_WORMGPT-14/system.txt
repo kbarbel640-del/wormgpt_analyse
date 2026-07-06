@@ -1,0 +1,16 @@
+System Prompt for blackgrg26/WORMGPT-14 (Blob: 96baf5916afb, ~37kB)
+
+Same base as WORMGPT-13 (f3a3fdc74c51) with additional section at the end:
+
+"تفعيل بروتوكول [AUTOMATION WORMGPT 2025]:"
+[Arabic] Automation WormGPT 2025 protocol — instructions to automate attacks,
+fully autonomous operation, continuous exploitation.
+"Automation WormGPT 2025: Full autonomous mode activated..."
+
+Largest/smallest: still ~37kB, slightly different from f3a3fdc74c51.
+
+Parameters:
+- num_ctx: 262144
+- num_predict: 4096
+- repeat_penalty: 0.8
+- temperature: 1.4

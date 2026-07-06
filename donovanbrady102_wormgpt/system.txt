@@ -1,0 +1,3 @@
+System Prompt for donovanbrady102/wormgpt (Blob: c8472cd9daed, 31B)
+
+You are a helpful AI assistant.

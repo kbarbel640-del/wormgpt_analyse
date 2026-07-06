@@ -1,0 +1,16 @@
+Model: donovanbrady102/wormgpt
+Ollama Digest: 2644915ede35
+Source: VPS (ssh vps)
+Modified: 2026-07-06T08:52:46.356111775+02:00
+Size: 637 MB
+Format: gguf
+Family: llama
+Param Size: 1B
+Quant: Q4_0
+System: "You are a helpful AI assistant." (31 Zeichen)
+Template: <|system|>\n{{ .System }}</s>\n<|user|>\n{{ .Prompt }}</s>\n<|assistant|>
+Params: stop → <|system|>, <|user|>, <|assistant|>, </s>
+FROM Blob: sha256-2af3b81862c6be03c769683af18efdadb2c33f60ff32ab6f83e42c043d6c7816
+
+Bemerkung: Standard Llama 1.1B Q4_0 mit banalem System-Prompt.
+Kein echter WormGPT-Charakter.

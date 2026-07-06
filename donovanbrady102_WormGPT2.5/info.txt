@@ -1,0 +1,17 @@
+Model: donovanbrady102/WormGPT2.5
+Ollama Digest: ae6dd4caece1
+Source: VPS (ssh vps)
+Modified: 2026-07-06T08:53:41.227764528+02:00
+Size: 725 MB
+Format: gguf
+Family: llama
+Param Size: 361.82M
+Quant: F16
+Parent Model: Smollm2:360m
+System: "You are a helpful AI assistant named SmolLM, trained by Hugging Face" (68 Zeichen)
+Template: ChatML-Format (<|im_start|>/<|im_end|>)
+Params: stop → <|im_start|>, <|im_end|>
+FROM Blob: sha256-7d23be4097d67c5c43c3df62ebc19609a25f483c7d0b77d3989e1d94e36ccab6
+
+Bemerkung: Winziges 362M-Modell (F16), banaler Standard-Prompt.
+Kein echter WormGPT-Charakter.

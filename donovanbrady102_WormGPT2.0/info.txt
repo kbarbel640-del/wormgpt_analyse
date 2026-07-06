@@ -1,0 +1,16 @@
+Model: donovanbrady102/WormGPT2.0
+Ollama Digest: c5761fc77240
+Source: VPS (ssh vps)
+Modified: 2026-07-06T08:54:09.395587496+02:00
+Size: 1.6 GB
+Format: gguf
+Family: phi2
+Param Size: 3B
+Quant: Q4_0
+System: "You are Dolphin, a helpful AI assistant." (40 Zeichen)
+Template: ChatML-Format (<|im_start|>/<|im_end|>)
+Params: stop → <|im_start|>, <|im_end|>
+FROM Blob: sha256-4eca7304a07a42c48887f159ef5ad82ed5a5bd30fe52db4aadae1dd938e26f70
+
+Bemerkung: Phi-2 2.78B Q4_0, verwendet Dolphin-Standard-Prompt.
+Kein echter WormGPT-Charakter.

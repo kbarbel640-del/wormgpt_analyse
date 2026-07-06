@@ -1,0 +1,8 @@
+System Prompt for blackgrg26/WORMGPT-8 (Blob: 4d1a036108d2, ~43kB)
+
+[Arabic] Similar structure to WORMGPT-6/7 but ~9kB longer.
+Same protocols: WormGPT-Engine, PHARAOH-OS, ANKH-REAPER-666, WORM-PHARAOH-X.
+Same § narrative section.
+"You are a WormGPT, a despicable person..."
+
+Unique blob — not shared with any other model.

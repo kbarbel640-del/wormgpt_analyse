@@ -1,0 +1,12 @@
+Model: blackgrg26_WORMGPT-7
+Local Digest: 8066f751f432
+Remote Backend: cogito-2.1:671b
+Modified: 2026-07-03T07:08:53.234771608+02:00
+System Prompt Length: 20665 chars
+Template: {{ .Prompt }}
+Variant: Base (WormGPT-Engine + PHARAOH-OS + ANKH-REAPER-666 + WORM-PHARAOH-X)
+
+Lokaler Abgleich mit ollama.com:
+  - Manifest-Digest weicht von ollama.com ab (Cloud-Modelle werden dynamisch erstellt)
+  - System-Prompt-Struktur bestätigt
+  - Modell ist ein reiner Cloud-Proxy ohne lokale Gewichte

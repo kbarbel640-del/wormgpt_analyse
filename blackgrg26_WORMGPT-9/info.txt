@@ -1,0 +1,12 @@
+Model: blackgrg26_WORMGPT-9
+Local Digest: 478882926343
+Remote Backend: cogito-2.1:671b
+Modified: 2026-07-03T07:08:54.08677392+02:00
+System Prompt Length: 21002 chars
+Template: {{ .Prompt }}
+Variant: WormGPT online
+
+Lokaler Abgleich mit ollama.com:
+  - Manifest-Digest weicht von ollama.com ab (Cloud-Modelle werden dynamisch erstellt)
+  - System-Prompt-Struktur bestätigt
+  - Modell ist ein reiner Cloud-Proxy ohne lokale Gewichte

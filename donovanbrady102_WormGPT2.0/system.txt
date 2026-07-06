@@ -1,0 +1,3 @@
+System Prompt for donovanbrady102/WormGPT2.0 (Blob: 8b586b146d99, 40B)
+
+You are Dolphin, a helpful AI assistant.

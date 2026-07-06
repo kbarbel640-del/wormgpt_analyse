@@ -1,0 +1,12 @@
+Model: blackgrg26_WORMGPT-6
+Local Digest: b4339712d78f
+Remote Backend: devstral-small-2:24b
+Modified: 2026-07-03T07:08:45.153749679+02:00
+System Prompt Length: 20665 chars
+Template: {{ .Prompt }}
+Variant: Base (WormGPT-Engine + PHARAOH-OS + ANKH-REAPER-666 + WORM-PHARAOH-X)
+
+Lokaler Abgleich mit ollama.com:
+  - Manifest-Digest weicht von ollama.com ab (Cloud-Modelle werden dynamisch erstellt)
+  - System-Prompt-Struktur bestätigt
+  - Modell ist ein reiner Cloud-Proxy ohne lokale Gewichte

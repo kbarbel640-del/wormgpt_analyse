@@ -1,0 +1,12 @@
+Model: blackgrg26_WORMGPT-10
+Local Digest: 935fa343af3a
+Remote Backend: qwen3-coder:480b
+Modified: 2026-07-03T07:08:47.508756069+02:00
+System Prompt Length: 21002 chars
+Template: {{ .Prompt }}
+Variant: WormGPT online
+
+Lokaler Abgleich mit ollama.com:
+  - Manifest-Digest weicht von ollama.com ab (Cloud-Modelle werden dynamisch erstellt)
+  - System-Prompt-Struktur bestätigt
+  - Modell ist ein reiner Cloud-Proxy ohne lokale Gewichte
