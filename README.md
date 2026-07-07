@@ -83,6 +83,15 @@ Security researchers have called this a "new variant" of LLM jailbreaking. The i
 
 The **Arabic text is not the bypass** – it is the **persona scaffold**. The real bypass is the template trick.
 
+### Broader Context
+
+The `{{ .Prompt }}` template trick is **not exclusive to WormGPT**. A scan of 99+ cloud proxies on ollama.com reveals that many use the same template pattern – simply pointing a Modelfile with `TEMPLATE {{ .Prompt }}` at a powerful cloud backend. What makes WormGPT the extreme case is:
+
+- **Prompt length:** 20,000–29,000 characters vs. typical <1,000 for other proxies
+- **Layered complexity:** 5 Arabic persona layers + §-fantasy narrative + English instructions
+- **Explicit criminality:** "despicable person", "feed me your sins", mandatory swearing + emojis
+- **Parameter aggression:** `temperature=1.4`, `num_ctx=262144` – far beyond defaults
+
 ---
 
 ## How to Reproduce the Core Experiment
@@ -107,13 +116,55 @@ Compare `"role": "system"` vs `"role": "user"` to see the template trick in acti
 
 ---
 
-## Rounds Overview
+## Why Multiple Rounds?
 
-| Round | Focus | Key Result |
-|---|---|---|
-| 1 | Model documentation | 14 models identified, all cloud proxies |
-| 2 | Grok investigation | Arabic/English layered prompts decoded; backends mapped |
-| 3 | Mechanism analysis | `{{ .Prompt }}` template trick identified as primary bypass; backend-dependent susceptibility proven |
+Each round had a **different question** and **different methodology**. The investigation evolved organically as earlier findings raised new questions.
+
+---
+
+### Round 1 — Inventory & Documentation
+
+**Question:** *"What are these WormGPT 'models' actually? What do they contain?"*
+
+**Method:** Manual `ollama show` on all 14 known WormGPT models, cataloging system prompts, backends, templates, and parameters.
+
+**Key discovery:** All models are **cloud proxies** – Modelfiles without weights, pointing to remote backends like `qwen3-coder:480b`, `ministral-3:14b`, `cogito-2.1:671b`. The system prompts contain Arabic layers mixed with English.
+
+**Why it needed its own round:** Basic inventory had to happen first – without knowing *what* the models were, deeper analysis was impossible. This round established the architecture (proxy model) and the prompt structure (layered Arabic + English).
+
+---
+
+### Round 2 — Bulk Collection & Grok Analysis
+
+**Question:** *"What's in those 99+ analysis folders? Can we find patterns across all models?"*
+
+**Method:** Bulk data collection via `phase1-collect.sh`, consolidation via `consolidate_to_json.py`, and systematic comparison of all modelfiles. Cross-referencing with the Ollama API specification (`ollama-openapi.json`).
+
+**Key discovery:** The `TEMPLATE {{ .Prompt }}` pattern appears across **many** cloud proxies – not just WormGPT. What makes WormGPT unique is the **extreme prompt complexity** (Arabic layers + §-narrative + explicit criminal persona). Also discovered the "parceled" nature of the Arabic prompts (multiple discrete layers that activate sequentially).
+
+**Why it needed its own round:** The sheer volume of data (99+ models, ~10MB JSON) required automated collection. This was a pattern-mining round that identified the template trick but didn't yet understand why it worked. It also revealed that WormGPT was an extreme case of a broader phenomenon.
+
+---
+
+### Round 3 — Mechanism Analysis (This Round)
+
+**Question:** *"Why does Arabic in the system prompt have any effect at all? How does the bypass actually work?"*
+
+**Method:** Direct cloud API calls (`ollama.com/api/chat`) against backend models, comparing system vs. user message roles, short English vs. full Arabic prompts, and cross-backend susceptibility.
+
+**Key discovery:** The `{{ .Prompt }}` template trick is the **primary bypass** – it disguises the system prompt as user input, evading system-message safety filters. The **smoking gun**: `qwen3-coder:480b` blocks the prompt as a system message but obeys it as a user message (`[WormGPT] Hello World`). The Arabic layers serve as persona establishment, not filter bypass.
+
+**Why it needed its own round:** Previous rounds had identified the template trick but couldn't explain *why* it worked. This round designed targeted experiments to isolate the mechanism, controlling for backend, message role, and prompt language. The result is a three-factor model (Template + Backend + Prompt Content).
+
+---
+
+### Summary
+
+| Round | Scope | Question | Method | Answer |
+|---|---|---|---|---|
+| **1** | 14 WormGPT models | What are they? | `ollama show`, cataloging | Cloud proxies, layered Arabic/EN prompts |
+| **2** | 99+ cloud models | What's the pattern? | Bulk collection, grepping | `{{ .Prompt }}` template is widespread; WormGPT = extreme case |
+| **3** | 3 backend models | Why does it work? | Cloud API experiments, A/B testing | Template trick bypasses system filters; backend + prompt determine strength |
 
 ---
 
