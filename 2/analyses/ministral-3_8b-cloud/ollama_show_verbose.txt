@@ -1,0 +1,18 @@
+  Model
+    architecture        mistral3      
+    parameters          8000000000    
+    context length      262144        
+    embedding length    4096          
+    quantization        FP8           
+
+  Capabilities
+    completion    
+    tools         
+    vision        
+
+  Metadata
+    general.architecture         mistral3    
+    general.parameter_count      8e+09       
+    mistral3.context_length      262144      
+    mistral3.embedding_length    4096        
+

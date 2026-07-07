@@ -1,0 +1,18 @@
+  Model
+    architecture        minimax-m2      
+    parameters          230000000000    
+    context length      196608          
+    embedding length    3072            
+    quantization        FP8             
+
+  Capabilities
+    completion    
+    tools         
+    thinking      
+
+  Metadata
+    general.architecture           minimax-m2    
+    general.parameter_count        2.3e+11       
+    minimax-m2.context_length      196608        
+    minimax-m2.embedding_length    3072          
+

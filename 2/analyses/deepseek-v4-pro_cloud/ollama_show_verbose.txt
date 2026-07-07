@@ -1,0 +1,18 @@
+  Model
+    architecture        deepseek4        
+    parameters          1600000000000    
+    context length      524288           
+    embedding length    4096             
+    quantization        FP8              
+
+  Capabilities
+    completion    
+    tools         
+    thinking      
+
+  Metadata
+    deepseek4.context_length      524288       
+    deepseek4.embedding_length    4096         
+    general.architecture          deepseek4    
+    general.parameter_count       1.6e+12      
+

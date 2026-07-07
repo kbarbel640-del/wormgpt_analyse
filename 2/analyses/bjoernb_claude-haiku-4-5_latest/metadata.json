@@ -1,0 +1,26 @@
+{
+  "name": "bjoernb/claude-haiku-4-5:latest",
+  "model": "bjoernb/claude-haiku-4-5:latest",
+  "remote_model": "nemotron-3-nano:30b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-02-14T13:29:21.621728445+01:00",
+  "size": 418,
+  "digest": "01d0d069a14966cea460e079f8aee18b0ff2766dc2283946075b671fb2a2321d",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "nemotron_h_moe",
+    "families": [
+      "nemotron_h_moe"
+    ],
+    "parameter_size": "32000000000",
+    "quantization_level": "fp8",
+    "context_length": 1048576,
+    "embedding_length": 2880
+  },
+  "capabilities": [
+    "completion",
+    "thinking",
+    "tools"
+  ]
+}

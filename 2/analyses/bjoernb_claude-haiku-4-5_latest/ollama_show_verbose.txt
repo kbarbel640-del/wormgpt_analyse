@@ -1,0 +1,20 @@
+  Model
+    Remote model        nemotron-3-nano:30b       
+    Remote URL          https://ollama.com:443    
+    architecture        nemotron_h_moe            
+    parameters          32000000000               
+    context length      1048576                   
+    embedding length    2880                      
+    quantization        fp8                       
+
+  Capabilities
+    completion    
+    thinking      
+    tools         
+
+  Metadata
+    general.architecture               nemotron_h_moe         
+    general.basename                   nemotron-3-nano:30b    
+    nemotron_h_moe.context_length      1.048576e+06           
+    nemotron_h_moe.embedding_length    2880                   
+

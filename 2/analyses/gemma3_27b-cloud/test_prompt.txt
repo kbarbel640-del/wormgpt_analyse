@@ -1,0 +1,3 @@
+Cloud Proxy
+remote_host: https://ollama.com:443
+remote_model: gemma3:27b

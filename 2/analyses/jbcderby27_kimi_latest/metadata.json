@@ -1,0 +1,24 @@
+{
+  "name": "jbcderby27/kimi:latest",
+  "model": "jbcderby27/kimi:latest",
+  "remote_model": "kimi-k2.5",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-03-01T18:42:10.951835597+01:00",
+  "size": 340,
+  "digest": "6d1c3246c6080b61c87b543323760b8f36cb68cf4473080b9429d09e2a73ddb7",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "",
+    "families": null,
+    "parameter_size": "",
+    "quantization_level": "",
+    "context_length": 262144
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking",
+    "vision"
+  ]
+}

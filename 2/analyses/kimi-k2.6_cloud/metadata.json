@@ -1,0 +1,27 @@
+{
+  "name": "kimi-k2.6:cloud",
+  "model": "kimi-k2.6:cloud",
+  "remote_model": "kimi-k2.6",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-07-03T03:48:34.1520806+02:00",
+  "size": 384,
+  "digest": "a90cd0d1590c53b9f9f4e0f66218e4c514d190652b8bed2842528e2530e34dc6",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "kimi-k2",
+    "families": [
+      "kimi-k2"
+    ],
+    "parameter_size": "1T",
+    "quantization_level": "int4",
+    "context_length": 262144,
+    "embedding_length": 2048
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking",
+    "vision"
+  ]
+}

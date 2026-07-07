@@ -1,0 +1,17 @@
+  Model
+    architecture        gemma3        
+    parameters          4000000000    
+    context length      131072        
+    embedding length    2560          
+    quantization        BF16          
+
+  Capabilities
+    completion    
+    vision        
+
+  Metadata
+    gemma3.context_length      131072    
+    gemma3.embedding_length    2560      
+    general.architecture       gemma3    
+    general.parameter_count    4e+09     
+

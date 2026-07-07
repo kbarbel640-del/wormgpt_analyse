@@ -1,0 +1,1625 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Ollama API",
+    "description": "Vollständige Ollama REST API – aus dem Quellcode extrahiert (github.com/ollama/ollama, Branch: main, Stand: 2026-06-27). Enthält native, OpenAI-kompatible, Anthropic-kompatible und experimentelle Endpunkte.",
+    "version": "0.9.x"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:11434",
+      "description": "Lokale Ollama-Instanz (Standard)"
+    }
+  ],
+  "tags": [
+    { "name": "Allgemein", "description": "Status und Version" },
+    { "name": "Modelle", "description": "Modell-Verwaltung (Pull, Push, Liste, Info, Löschen)" },
+    { "name": "Inferenz", "description": "Generate, Chat, Embeddings" },
+    { "name": "Auth", "description": "Ollama-Account (ollama.com)" },
+    { "name": "Experimental", "description": "Experimentelle Endpunkte (Cloud-Proxy)" },
+    { "name": "OpenAI-Kompatibilität", "description": "Endpunkte kompatibel zur OpenAI API (/v1/...)" },
+    { "name": "Anthropic-Kompatibilität", "description": "Endpunkte kompatibel zur Anthropic API" }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": ["Allgemein"],
+        "summary": "Server-Status prüfen",
+        "operationId": "getRoot",
+        "responses": {
+          "200": {
+            "description": "Ollama läuft",
+            "content": {
+              "text/plain": {
+                "schema": { "type": "string", "example": "Ollama is running" }
+              }
+            }
+          }
+        }
+      },
+      "head": {
+        "tags": ["Allgemein"],
+        "summary": "Server-Status prüfen (HEAD)",
+        "operationId": "headRoot",
+        "responses": {
+          "200": { "description": "Ollama läuft" }
+        }
+      }
+    },
+    "/api/version": {
+      "get": {
+        "tags": ["Allgemein"],
+        "summary": "Ollama-Version abfragen",
+        "operationId": "getVersion",
+        "responses": {
+          "200": {
+            "description": "Aktuelle Version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "version": { "type": "string", "example": "0.9.0" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "head": {
+        "tags": ["Allgemein"],
+        "summary": "Ollama-Version abfragen (HEAD)",
+        "operationId": "headVersion",
+        "responses": {
+          "200": { "description": "OK" }
+        }
+      }
+    },
+    "/api/status": {
+      "get": {
+        "tags": ["Allgemein"],
+        "summary": "Cloud-Status abfragen",
+        "description": "Gibt zurück ob Ollama Cloud aktiviert oder deaktiviert ist.",
+        "operationId": "getStatus",
+        "responses": {
+          "200": {
+            "description": "Cloud-Status",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StatusResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tags": {
+      "get": {
+        "tags": ["Modelle"],
+        "summary": "Alle lokalen Modelle auflisten",
+        "operationId": "listModels",
+        "responses": {
+          "200": {
+            "description": "Liste aller Modelle",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ListResponse" }
+              }
+            }
+          }
+        }
+      },
+      "head": {
+        "tags": ["Modelle"],
+        "summary": "Alle lokalen Modelle auflisten (HEAD)",
+        "operationId": "headListModels",
+        "responses": {
+          "200": { "description": "OK" }
+        }
+      }
+    },
+    "/api/show": {
+      "post": {
+        "tags": ["Modelle"],
+        "summary": "Modellinformationen anzeigen",
+        "operationId": "showModel",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ShowRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Modellinformationen",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ShowResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "$ref": "#/components/responses/NotFound" }
+        }
+      }
+    },
+    "/api/pull": {
+      "post": {
+        "tags": ["Modelle"],
+        "summary": "Modell herunterladen",
+        "description": "Lädt ein Modell aus der Ollama-Bibliothek herunter. Gibt einen Fortschritts-Stream zurück (NDJSON) oder das Endergebnis (wenn stream=false).",
+        "operationId": "pullModel",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PullRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Fortschritts-Stream (NDJSON) oder Endergebnis",
+            "content": {
+              "application/x-ndjson": {
+                "schema": { "$ref": "#/components/schemas/ProgressResponse" }
+              },
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProgressResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" }
+        }
+      }
+    },
+    "/api/push": {
+      "post": {
+        "tags": ["Modelle"],
+        "summary": "Modell hochladen",
+        "description": "Lädt ein Modell in die Ollama-Bibliothek hoch. Erfordert Authentifizierung.",
+        "operationId": "pushModel",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PushRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Fortschritts-Stream (NDJSON)",
+            "content": {
+              "application/x-ndjson": {
+                "schema": { "$ref": "#/components/schemas/ProgressResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "401": { "$ref": "#/components/responses/Unauthorized" }
+        }
+      }
+    },
+    "/api/delete": {
+      "delete": {
+        "tags": ["Modelle"],
+        "summary": "Modell löschen",
+        "operationId": "deleteModel",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/DeleteRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Modell erfolgreich gelöscht" },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "$ref": "#/components/responses/NotFound" }
+        }
+      }
+    },
+    "/api/copy": {
+      "post": {
+        "tags": ["Modelle"],
+        "summary": "Modell kopieren",
+        "operationId": "copyModel",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CopyRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Modell erfolgreich kopiert" },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "$ref": "#/components/responses/NotFound" }
+        }
+      }
+    },
+    "/api/create": {
+      "post": {
+        "tags": ["Modelle"],
+        "summary": "Neues Modell erstellen",
+        "description": "Erstellt ein neues Modell aus einem Modelfile oder einer Quelldatei.",
+        "operationId": "createModel",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Erstellungs-Fortschritt (NDJSON)",
+            "content": {
+              "application/x-ndjson": {
+                "schema": { "$ref": "#/components/schemas/ProgressResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" }
+        }
+      }
+    },
+    "/api/blobs/{digest}": {
+      "head": {
+        "tags": ["Modelle"],
+        "summary": "Blob-Existenz prüfen",
+        "operationId": "headBlob",
+        "parameters": [
+          {
+            "name": "digest",
+            "in": "path",
+            "required": true,
+            "description": "SHA256-Digest des Blobs (z.B. sha256:abc123...)",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Blob existiert" },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "$ref": "#/components/responses/NotFound" }
+        }
+      },
+      "post": {
+        "tags": ["Modelle"],
+        "summary": "Blob hochladen",
+        "description": "Lädt einen Blob (z.B. ein Modellgewicht) auf den Server. Muss vor /api/create verwendet werden.",
+        "operationId": "createBlob",
+        "parameters": [
+          {
+            "name": "digest",
+            "in": "path",
+            "required": true,
+            "description": "Erwarteter SHA256-Digest des Blobs",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/octet-stream": {
+              "schema": { "type": "string", "format": "binary" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Blob bereits vorhanden" },
+          "201": { "description": "Blob erfolgreich erstellt" },
+          "400": { "$ref": "#/components/responses/BadRequest" }
+        }
+      }
+    },
+    "/api/ps": {
+      "get": {
+        "tags": ["Inferenz"],
+        "summary": "Aktuell geladene Modelle anzeigen",
+        "description": "Gibt alle Modelle zurück, die momentan im Speicher geladen sind.",
+        "operationId": "listRunningModels",
+        "responses": {
+          "200": {
+            "description": "Liste der geladenen Modelle",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProcessResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/generate": {
+      "post": {
+        "tags": ["Inferenz"],
+        "summary": "Text generieren (Completion)",
+        "description": "Generiert Text basierend auf einem Prompt. Unterstützt Streaming (NDJSON) oder einmalige Antwort. Unterstützt auch Bildgenerierungs-Modelle.",
+        "operationId": "generate",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/GenerateRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Generierter Text (Stream oder einmalig)",
+            "content": {
+              "application/x-ndjson": {
+                "schema": { "$ref": "#/components/schemas/GenerateResponse" }
+              },
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenerateResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "$ref": "#/components/responses/NotFound" }
+        }
+      }
+    },
+    "/api/chat": {
+      "post": {
+        "tags": ["Inferenz"],
+        "summary": "Chat-Anfrage senden",
+        "description": "Führt eine Chat-Konversation durch. Unterstützt Streaming, Tool-Calls, Vision-Modelle, Thinking-Modelle und logprobs.",
+        "operationId": "chat",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ChatRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Chat-Antwort (Stream oder einmalig)",
+            "content": {
+              "application/x-ndjson": {
+                "schema": { "$ref": "#/components/schemas/ChatResponse" }
+              },
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ChatResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "$ref": "#/components/responses/NotFound" }
+        }
+      }
+    },
+    "/api/embed": {
+      "post": {
+        "tags": ["Inferenz"],
+        "summary": "Embeddings erstellen (neue API)",
+        "description": "Erstellt Vektoreinbettungen für einen oder mehrere Texte. Unterstützt Batch-Input und Dimensionsreduktion.",
+        "operationId": "embed",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/EmbedRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Embedding-Vektoren",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/EmbedResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" }
+        }
+      }
+    },
+    "/api/embeddings": {
+      "post": {
+        "tags": ["Inferenz"],
+        "summary": "Embeddings erstellen (alte API, deprecated)",
+        "description": "Veraltet – bitte /api/embed verwenden. Erstellt ein einzelnes Embedding für einen Text.",
+        "operationId": "embeddings",
+        "deprecated": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/EmbeddingRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Embedding-Vektor",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/EmbeddingResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" }
+        }
+      }
+    },
+    "/api/me": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Aktuellen Benutzer abfragen (Whoami)",
+        "description": "Gibt Informationen über den angemeldeten ollama.com-Benutzer zurück.",
+        "operationId": "whoami",
+        "responses": {
+          "200": {
+            "description": "Benutzerinformationen",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "503": { "$ref": "#/components/responses/ServiceUnavailable" }
+        }
+      }
+    },
+    "/api/signout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Vom Ollama-Account abmelden",
+        "operationId": "signout",
+        "responses": {
+          "200": { "description": "Erfolgreich abgemeldet" },
+          "401": { "$ref": "#/components/responses/Unauthorized" }
+        }
+      }
+    },
+    "/api/user/keys/{encodedKey}": {
+      "delete": {
+        "tags": ["Auth"],
+        "summary": "API-Schlüssel entfernen (deprecated)",
+        "description": "Veraltet – bitte /api/signout verwenden.",
+        "operationId": "deleteUserKey",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "encodedKey",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Schlüssel entfernt" },
+          "401": { "$ref": "#/components/responses/Unauthorized" }
+        }
+      }
+    },
+    "/api/experimental/web_search": {
+      "post": {
+        "tags": ["Experimental"],
+        "summary": "Websuche durchführen (Cloud-Proxy)",
+        "description": "Leitet eine Websuchanfrage an den Ollama-Cloud-Dienst weiter. Erfordert aktivierte Cloud-Verbindung.",
+        "operationId": "webSearchExperimental",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Suchanfrage (genaues Schema vom Cloud-Dienst definiert)",
+                "properties": {
+                  "query": { "type": "string", "description": "Suchbegriff" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Suchergebnisse",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "403": { "$ref": "#/components/responses/Forbidden" }
+        }
+      }
+    },
+    "/api/experimental/web_fetch": {
+      "post": {
+        "tags": ["Experimental"],
+        "summary": "Webseite abrufen (Cloud-Proxy)",
+        "description": "Ruft den Inhalt einer Webseite über den Ollama-Cloud-Dienst ab. Erfordert aktivierte Cloud-Verbindung.",
+        "operationId": "webFetchExperimental",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": { "type": "string", "format": "uri", "description": "URL der abzurufenden Seite" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Seiteninhalt",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "403": { "$ref": "#/components/responses/Forbidden" }
+        }
+      }
+    },
+    "/api/experimental/model-recommendations": {
+      "get": {
+        "tags": ["Experimental"],
+        "summary": "Modell-Empfehlungen abrufen",
+        "description": "Gibt empfohlene Modelle zurück (aus Cache oder Standard-Liste).",
+        "operationId": "modelRecommendationsExperimental",
+        "responses": {
+          "200": {
+            "description": "Liste der Modell-Empfehlungen",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ModelRecommendationsResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/chat/completions": {
+      "post": {
+        "tags": ["OpenAI-Kompatibilität"],
+        "summary": "Chat Completions (OpenAI-kompatibel)",
+        "description": "OpenAI-kompatibler Endpunkt. Anfrage- und Antwortformat folgt der OpenAI Chat Completions API. Intern wird an /api/chat weitergeleitet.",
+        "operationId": "v1ChatCompletions",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/OpenAIChatRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Chat-Antwort im OpenAI-Format",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenAIChatResponse" }
+              },
+              "text/event-stream": {
+                "schema": { "type": "string" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "$ref": "#/components/responses/NotFound" }
+        }
+      }
+    },
+    "/v1/completions": {
+      "post": {
+        "tags": ["OpenAI-Kompatibilität"],
+        "summary": "Text Completions (OpenAI-kompatibel, legacy)",
+        "description": "OpenAI-kompatibler Legacy-Endpunkt für Textgenerierung. Intern an /api/generate weitergeleitet.",
+        "operationId": "v1Completions",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/OpenAICompletionRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Completion-Antwort im OpenAI-Format",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" }
+        }
+      }
+    },
+    "/v1/embeddings": {
+      "post": {
+        "tags": ["OpenAI-Kompatibilität"],
+        "summary": "Embeddings (OpenAI-kompatibel)",
+        "description": "OpenAI-kompatibler Embedding-Endpunkt. Intern an /api/embed weitergeleitet.",
+        "operationId": "v1Embeddings",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["model", "input"],
+                "properties": {
+                  "model": { "type": "string" },
+                  "input": {
+                    "oneOf": [
+                      { "type": "string" },
+                      { "type": "array", "items": { "type": "string" } }
+                    ]
+                  },
+                  "dimensions": { "type": "integer" },
+                  "encoding_format": { "type": "string", "enum": ["float", "base64"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Embedding-Daten im OpenAI-Format",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/models": {
+      "get": {
+        "tags": ["OpenAI-Kompatibilität"],
+        "summary": "Modelle auflisten (OpenAI-kompatibel)",
+        "description": "Gibt alle lokalen Modelle im OpenAI-Format zurück.",
+        "operationId": "v1ListModels",
+        "responses": {
+          "200": {
+            "description": "Modellliste im OpenAI-Format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": { "type": "string", "example": "list" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/OpenAIModel" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/models/{model}": {
+      "get": {
+        "tags": ["OpenAI-Kompatibilität"],
+        "summary": "Modellinformationen abrufen (OpenAI-kompatibel)",
+        "description": "Gibt Details zu einem einzelnen Modell im OpenAI-Format zurück.",
+        "operationId": "v1RetrieveModel",
+        "parameters": [
+          {
+            "name": "model",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "example": "llama3.2"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Modell-Objekt im OpenAI-Format",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OpenAIModel" }
+              }
+            }
+          },
+          "404": { "$ref": "#/components/responses/NotFound" }
+        }
+      }
+    },
+    "/v1/responses": {
+      "post": {
+        "tags": ["OpenAI-Kompatibilität"],
+        "summary": "Responses API (OpenAI-kompatibel)",
+        "description": "OpenAI Responses API (neueres Format, ersetzt teilweise Chat Completions). Intern an /api/chat weitergeleitet.",
+        "operationId": "v1Responses",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/OpenAIChatRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antwort im OpenAI Responses-Format",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" }
+        }
+      }
+    },
+    "/v1/images/generations": {
+      "post": {
+        "tags": ["OpenAI-Kompatibilität"],
+        "summary": "Bilder generieren (OpenAI-kompatibel)",
+        "description": "Generiert Bilder mit einem Bildgenerierungsmodell. Intern an /api/generate weitergeleitet.",
+        "operationId": "v1ImageGenerations",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["model", "prompt"],
+                "properties": {
+                  "model": { "type": "string" },
+                  "prompt": { "type": "string" },
+                  "n": { "type": "integer", "default": 1 },
+                  "size": { "type": "string", "example": "1024x1024" },
+                  "response_format": { "type": "string", "enum": ["url", "b64_json"], "default": "b64_json" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Generiertes Bild",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "created": { "type": "integer" },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "b64_json": { "type": "string" },
+                          "url": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" }
+        }
+      }
+    },
+    "/v1/images/edits": {
+      "post": {
+        "tags": ["OpenAI-Kompatibilität"],
+        "summary": "Bilder bearbeiten (OpenAI-kompatibel)",
+        "description": "Bearbeitet ein bestehendes Bild mit einem Bildgenerierungsmodell. Intern an /api/generate weitergeleitet.",
+        "operationId": "v1ImageEdits",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model": { "type": "string" },
+                  "prompt": { "type": "string" },
+                  "image": { "type": "string", "format": "binary" },
+                  "mask": { "type": "string", "format": "binary" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bearbeitetes Bild",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" }
+        }
+      }
+    },
+    "/v1/audio/transcriptions": {
+      "post": {
+        "tags": ["OpenAI-Kompatibilität"],
+        "summary": "Audio transkribieren (OpenAI-kompatibel)",
+        "description": "Transkribiert eine Audiodatei. Intern an /api/chat weitergeleitet.",
+        "operationId": "v1AudioTranscriptions",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": ["file", "model"],
+                "properties": {
+                  "file": { "type": "string", "format": "binary" },
+                  "model": { "type": "string" },
+                  "language": { "type": "string" },
+                  "prompt": { "type": "string" },
+                  "response_format": { "type": "string", "enum": ["json", "text", "srt", "verbose_json", "vtt"] },
+                  "temperature": { "type": "number" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transkription",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "text": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" }
+        }
+      }
+    },
+    "/v1/messages": {
+      "post": {
+        "tags": ["Anthropic-Kompatibilität"],
+        "summary": "Messages API (Anthropic-kompatibel)",
+        "description": "Anthropic-kompatibler Endpunkt. Anfrage- und Antwortformat folgt der Anthropic Messages API. Intern an /api/chat weitergeleitet.",
+        "operationId": "v1Messages",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AnthropicMessagesRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antwort im Anthropic-Format",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AnthropicMessagesResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "$ref": "#/components/responses/NotFound" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Options": {
+        "type": "object",
+        "description": "Modellspezifische Parameter für Inferenz und Laufzeit.",
+        "properties": {
+          "num_ctx": { "type": "integer", "description": "Kontextfenstergröße in Tokens", "default": 2048 },
+          "num_batch": { "type": "integer", "description": "Batch-Größe für Prompt-Verarbeitung", "default": 512 },
+          "num_gpu": { "type": "integer", "description": "Anzahl der GPU-Layer (-1 = automatisch)", "default": -1 },
+          "main_gpu": { "type": "integer", "description": "Primäre GPU-Index" },
+          "use_mmap": { "type": "boolean", "description": "Memory-Mapped IO verwenden" },
+          "num_thread": { "type": "integer", "description": "Anzahl der CPU-Threads (0 = automatisch)" },
+          "draft_num_predict": { "type": "integer", "description": "Anzahl der Tokens für Speculative Decoding", "default": 4 },
+          "num_keep": { "type": "integer", "description": "Anzahl der Tokens die beim Context-Shift erhalten bleiben", "default": 4 },
+          "seed": { "type": "integer", "description": "Zufalls-Seed (-1 = zufällig)", "default": -1 },
+          "num_predict": { "type": "integer", "description": "Maximale Anzahl generierter Tokens (-1 = unbegrenzt)", "default": -1 },
+          "top_k": { "type": "integer", "description": "Top-K Sampling", "default": 40 },
+          "top_p": { "type": "number", "format": "float", "description": "Top-P (Nucleus) Sampling", "default": 0.9 },
+          "min_p": { "type": "number", "format": "float", "description": "Minimale Wahrscheinlichkeit eines Tokens" },
+          "typical_p": { "type": "number", "format": "float", "description": "Locally Typical Sampling", "default": 1.0 },
+          "repeat_last_n": { "type": "integer", "description": "Fenster für Wiederholungsstrafe", "default": 64 },
+          "temperature": { "type": "number", "format": "float", "description": "Sampling-Temperatur (0.0 = deterministisch)", "default": 0.8 },
+          "repeat_penalty": { "type": "number", "format": "float", "description": "Strafe für Wiederholungen", "default": 1.1 },
+          "presence_penalty": { "type": "number", "format": "float", "description": "Presence Penalty", "default": 0.0 },
+          "frequency_penalty": { "type": "number", "format": "float", "description": "Frequency Penalty", "default": 0.0 },
+          "stop": { "type": "array", "items": { "type": "string" }, "description": "Stop-Sequenzen die die Generierung beenden" }
+        }
+      },
+      "KeepAlive": {
+        "description": "Wie lange das Modell im Speicher bleibt. Zahl = Sekunden, String = Go-Duration (z.B. '5m', '1h'). -1 = immer, 0 = sofort entladen.",
+        "oneOf": [
+          { "type": "number", "example": 300 },
+          { "type": "string", "example": "5m" }
+        ]
+      },
+      "ThinkValue": {
+        "description": "Thinking/Reasoning-Modus. Boolean oder Intensitätsstufe.",
+        "oneOf": [
+          { "type": "boolean" },
+          { "type": "string", "enum": ["low", "medium", "high", "max"] }
+        ]
+      },
+      "FormatValue": {
+        "description": "Antwortformat. 'json' für freies JSON, oder ein JSON-Schema-Objekt für strukturierte Ausgabe.",
+        "oneOf": [
+          { "type": "string", "enum": ["json"] },
+          { "type": "object", "description": "JSON-Schema für strukturierte Ausgabe" }
+        ]
+      },
+      "Message": {
+        "type": "object",
+        "required": ["role", "content"],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": ["system", "user", "assistant", "tool"],
+            "description": "Rolle des Nachrichtenerstellers"
+          },
+          "content": { "type": "string", "description": "Textinhalt der Nachricht" },
+          "thinking": { "type": "string", "description": "Reasoning-Text (bei think=true, nur in Antworten)" },
+          "images": {
+            "type": "array",
+            "items": { "type": "string", "format": "byte", "description": "Base64-kodiertes Bild" },
+            "description": "Bilder für multimodale Modelle (Base64)"
+          },
+          "tool_calls": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ToolCall" },
+            "description": "Tool-Aufrufe (nur in Assistenten-Nachrichten)"
+          },
+          "tool_name": { "type": "string", "description": "Name des aufgerufenen Tools (in Tool-Antworten)" },
+          "tool_call_id": { "type": "string", "description": "ID des Tool-Aufrufs (in Tool-Antworten)" }
+        }
+      },
+      "ToolCall": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "function": {
+            "type": "object",
+            "properties": {
+              "index": { "type": "integer" },
+              "name": { "type": "string" },
+              "arguments": { "type": "object", "additionalProperties": true }
+            }
+          }
+        }
+      },
+      "Tool": {
+        "type": "object",
+        "required": ["type", "function"],
+        "properties": {
+          "type": { "type": "string", "enum": ["function"] },
+          "function": {
+            "type": "object",
+            "required": ["name", "parameters"],
+            "properties": {
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "parameters": {
+                "type": "object",
+                "required": ["type"],
+                "properties": {
+                  "type": { "type": "string", "example": "object" },
+                  "required": { "type": "array", "items": { "type": "string" } },
+                  "properties": { "type": "object", "additionalProperties": true }
+                }
+              }
+            }
+          }
+        }
+      },
+      "TokenLogprob": {
+        "type": "object",
+        "properties": {
+          "token": { "type": "string" },
+          "logprob": { "type": "number", "format": "double" },
+          "bytes": { "type": "array", "items": { "type": "integer" } }
+        }
+      },
+      "Logprob": {
+        "allOf": [
+          { "$ref": "#/components/schemas/TokenLogprob" },
+          {
+            "type": "object",
+            "properties": {
+              "top_logprobs": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TokenLogprob" }
+              }
+            }
+          }
+        ]
+      },
+      "Metrics": {
+        "type": "object",
+        "description": "Performance-Metriken der Inferenz (Nanosekunden).",
+        "properties": {
+          "total_duration": { "type": "integer", "description": "Gesamtdauer in Nanosekunden" },
+          "load_duration": { "type": "integer", "description": "Modellladezeit in Nanosekunden" },
+          "prompt_eval_count": { "type": "integer", "description": "Anzahl der Prompt-Tokens" },
+          "prompt_eval_duration": { "type": "integer", "description": "Prompt-Auswertungszeit in Nanosekunden" },
+          "eval_count": { "type": "integer", "description": "Anzahl der generierten Tokens" },
+          "eval_duration": { "type": "integer", "description": "Generierungszeit in Nanosekunden" }
+        }
+      },
+      "GenerateRequest": {
+        "type": "object",
+        "required": ["model"],
+        "properties": {
+          "model": { "type": "string", "description": "Modellname (z.B. 'llama3.2', 'mistral')", "example": "llama3.2" },
+          "prompt": { "type": "string", "description": "Eingabe-Prompt" },
+          "suffix": { "type": "string", "description": "Text nach der Einfügestelle (für FIM/Insert-Fähige Modelle)" },
+          "system": { "type": "string", "description": "Überschreibt den System-Prompt des Modells" },
+          "template": { "type": "string", "description": "Überschreibt das Prompt-Template des Modells" },
+          "context": { "type": "array", "items": { "type": "integer" }, "description": "Kontext aus vorheriger Antwort (deprecated)" },
+          "stream": { "type": "boolean", "default": true, "description": "Streaming aktivieren (NDJSON)" },
+          "raw": { "type": "boolean", "default": false, "description": "Kein Template anwenden" },
+          "format": { "$ref": "#/components/schemas/FormatValue" },
+          "keep_alive": { "$ref": "#/components/schemas/KeepAlive" },
+          "images": { "type": "array", "items": { "type": "string", "format": "byte" }, "description": "Bilder (Base64) für multimodale Modelle" },
+          "options": { "$ref": "#/components/schemas/Options" },
+          "think": { "$ref": "#/components/schemas/ThinkValue" },
+          "truncate": { "type": "boolean", "description": "Chat-History kürzen wenn Kontext überschritten" },
+          "shift": { "type": "boolean", "description": "History verschieben statt Fehler bei Kontext-Überschreitung" },
+          "logprobs": { "type": "boolean", "description": "Log-Wahrscheinlichkeiten zurückgeben" },
+          "top_logprobs": { "type": "integer", "minimum": 0, "maximum": 20, "description": "Anzahl der Top-Token-Logprobs pro Position" },
+          "_debug_render_only": { "type": "boolean", "description": "Debug: Nur gerenderten Template zurückgeben, kein Modell aufrufen" },
+          "width": { "type": "integer", "description": "Bildbreite in Pixel (nur Bildgenerierungsmodelle)" },
+          "height": { "type": "integer", "description": "Bildhöhe in Pixel (nur Bildgenerierungsmodelle)" },
+          "steps": { "type": "integer", "description": "Diffusion-Steps (nur Bildgenerierungsmodelle)" }
+        }
+      },
+      "GenerateResponse": {
+        "type": "object",
+        "properties": {
+          "model": { "type": "string" },
+          "remote_model": { "type": "string" },
+          "remote_host": { "type": "string" },
+          "created_at": { "type": "string", "format": "date-time" },
+          "response": { "type": "string", "description": "Generierter Text" },
+          "thinking": { "type": "string", "description": "Reasoning-Text (wenn think aktiviert)" },
+          "done": { "type": "boolean" },
+          "done_reason": { "type": "string", "enum": ["stop", "length", "load", "unload"], "description": "Grund für Generierungsende" },
+          "context": { "type": "array", "items": { "type": "integer" }, "description": "Kontext für nächste Anfrage (deprecated)" },
+          "tool_calls": { "type": "array", "items": { "$ref": "#/components/schemas/ToolCall" } },
+          "logprobs": { "type": "array", "items": { "$ref": "#/components/schemas/Logprob" } },
+          "image": { "type": "string", "description": "Base64-kodiertes Bild (nur Bildgenerierungsmodelle)" },
+          "completed": { "type": "integer", "description": "Abgeschlossene Schritte (Bildgenerierung, Streaming)" },
+          "total": { "type": "integer", "description": "Gesamtschritte (Bildgenerierung, Streaming)" }
+        },
+        "allOf": [{ "$ref": "#/components/schemas/Metrics" }]
+      },
+      "ChatRequest": {
+        "type": "object",
+        "required": ["model", "messages"],
+        "properties": {
+          "model": { "type": "string", "description": "Modellname", "example": "llama3.2" },
+          "messages": { "type": "array", "items": { "$ref": "#/components/schemas/Message" }, "description": "Konversationsverlauf" },
+          "stream": { "type": "boolean", "default": true },
+          "format": { "$ref": "#/components/schemas/FormatValue" },
+          "keep_alive": { "$ref": "#/components/schemas/KeepAlive" },
+          "tools": { "type": "array", "items": { "$ref": "#/components/schemas/Tool" }, "description": "Verfügbare Tools für den Assistenten" },
+          "options": { "$ref": "#/components/schemas/Options" },
+          "think": { "$ref": "#/components/schemas/ThinkValue" },
+          "truncate": { "type": "boolean" },
+          "shift": { "type": "boolean" },
+          "logprobs": { "type": "boolean" },
+          "top_logprobs": { "type": "integer", "minimum": 0, "maximum": 20 },
+          "_debug_render_only": { "type": "boolean" }
+        }
+      },
+      "ChatResponse": {
+        "type": "object",
+        "properties": {
+          "model": { "type": "string" },
+          "remote_model": { "type": "string" },
+          "remote_host": { "type": "string" },
+          "created_at": { "type": "string", "format": "date-time" },
+          "message": { "$ref": "#/components/schemas/Message" },
+          "done": { "type": "boolean" },
+          "done_reason": { "type": "string", "enum": ["stop", "length", "tool_use"] },
+          "logprobs": { "type": "array", "items": { "$ref": "#/components/schemas/Logprob" } }
+        },
+        "allOf": [{ "$ref": "#/components/schemas/Metrics" }]
+      },
+      "EmbedRequest": {
+        "type": "object",
+        "required": ["model", "input"],
+        "properties": {
+          "model": { "type": "string", "example": "nomic-embed-text" },
+          "input": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "array", "items": { "type": "string" } }
+            ],
+            "description": "Text oder Liste von Texten"
+          },
+          "keep_alive": { "$ref": "#/components/schemas/KeepAlive" },
+          "truncate": { "type": "boolean", "default": true, "description": "Eingabe auf Kontextlänge kürzen" },
+          "dimensions": { "type": "integer", "description": "Ausgabe-Dimensionen kürzen" },
+          "options": { "$ref": "#/components/schemas/Options" }
+        }
+      },
+      "EmbedResponse": {
+        "type": "object",
+        "properties": {
+          "model": { "type": "string" },
+          "embeddings": { "type": "array", "items": { "type": "array", "items": { "type": "number", "format": "float" } } },
+          "total_duration": { "type": "integer" },
+          "load_duration": { "type": "integer" },
+          "prompt_eval_count": { "type": "integer" }
+        }
+      },
+      "EmbeddingRequest": {
+        "type": "object",
+        "description": "Veraltet – bitte EmbedRequest verwenden.",
+        "required": ["model", "prompt"],
+        "properties": {
+          "model": { "type": "string" },
+          "prompt": { "type": "string" },
+          "keep_alive": { "$ref": "#/components/schemas/KeepAlive" },
+          "options": { "$ref": "#/components/schemas/Options" }
+        }
+      },
+      "EmbeddingResponse": {
+        "type": "object",
+        "description": "Veraltet – bitte EmbedResponse verwenden.",
+        "properties": {
+          "embedding": { "type": "array", "items": { "type": "number", "format": "double" } }
+        }
+      },
+      "ModelDetails": {
+        "type": "object",
+        "properties": {
+          "parent_model": { "type": "string" },
+          "format": { "type": "string", "example": "gguf" },
+          "family": { "type": "string", "example": "llama" },
+          "families": { "type": "array", "items": { "type": "string" } },
+          "parameter_size": { "type": "string", "example": "8.0B" },
+          "quantization_level": { "type": "string", "example": "Q4_K_M" },
+          "context_length": { "type": "integer" },
+          "embedding_length": { "type": "integer" }
+        }
+      },
+      "Tensor": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "shape": { "type": "array", "items": { "type": "integer", "format": "int64" } }
+        }
+      },
+      "ShowRequest": {
+        "type": "object",
+        "required": ["model"],
+        "properties": {
+          "model": { "type": "string", "example": "llama3.2" },
+          "system": { "type": "string", "description": "System-Prompt überschreiben" },
+          "verbose": { "type": "boolean", "description": "Tensor-Informationen einschließen" },
+          "options": { "$ref": "#/components/schemas/Options" }
+        }
+      },
+      "ShowResponse": {
+        "type": "object",
+        "properties": {
+          "license": { "type": "string" },
+          "modelfile": { "type": "string", "description": "Generiertes Modelfile" },
+          "parameters": { "type": "string", "description": "Modellparameter als String" },
+          "template": { "type": "string", "description": "Prompt-Template" },
+          "system": { "type": "string" },
+          "renderer": { "type": "string" },
+          "parser": { "type": "string" },
+          "details": { "$ref": "#/components/schemas/ModelDetails" },
+          "messages": { "type": "array", "items": { "$ref": "#/components/schemas/Message" } },
+          "remote_model": { "type": "string" },
+          "remote_host": { "type": "string" },
+          "model_info": { "type": "object", "additionalProperties": true, "description": "GGUF KV-Metadaten" },
+          "projector_info": { "type": "object", "additionalProperties": true, "description": "Vision-Projektor-Metadaten" },
+          "tensors": { "type": "array", "items": { "$ref": "#/components/schemas/Tensor" } },
+          "capabilities": { "type": "array", "items": { "type": "string", "enum": ["completion", "embedding", "tools", "vision", "thinking", "image", "insert"] } },
+          "modified_at": { "type": "string", "format": "date-time" },
+          "requires": { "type": "string", "description": "Minimale Ollama-Version" }
+        }
+      },
+      "PullRequest": {
+        "type": "object",
+        "required": ["model"],
+        "properties": {
+          "model": { "type": "string", "example": "llama3.2" },
+          "stream": { "type": "boolean", "default": true },
+          "insecure": { "type": "boolean", "deprecated": true, "description": "Ignoriert" }
+        }
+      },
+      "PushRequest": {
+        "type": "object",
+        "required": ["model"],
+        "properties": {
+          "model": { "type": "string" },
+          "stream": { "type": "boolean", "default": true },
+          "insecure": { "type": "boolean" }
+        }
+      },
+      "ProgressResponse": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "example": "pulling manifest" },
+          "digest": { "type": "string", "example": "sha256:abc123..." },
+          "total": { "type": "integer", "description": "Gesamtgröße in Bytes" },
+          "completed": { "type": "integer", "description": "Heruntergeladene Bytes" }
+        }
+      },
+      "DeleteRequest": {
+        "type": "object",
+        "required": ["model"],
+        "properties": {
+          "model": { "type": "string", "example": "llama3.2" }
+        }
+      },
+      "CopyRequest": {
+        "type": "object",
+        "required": ["source", "destination"],
+        "properties": {
+          "source": { "type": "string", "example": "llama3.2" },
+          "destination": { "type": "string", "example": "mein-llama" }
+        }
+      },
+      "CreateRequest": {
+        "type": "object",
+        "required": ["model"],
+        "properties": {
+          "model": { "type": "string", "description": "Name des neuen Modells" },
+          "from": { "type": "string", "description": "Quellmodell oder Dateipfad" },
+          "stream": { "type": "boolean", "default": true },
+          "quantize": { "type": "string", "description": "Quantisierungsformat (z.B. 'q4_K_M')" },
+          "draft_quantize": { "type": "string" },
+          "template": { "type": "string" },
+          "system": { "type": "string" },
+          "license": { "oneOf": [{ "type": "string" }, { "type": "array", "items": { "type": "string" } }] },
+          "parameters": { "type": "object", "additionalProperties": true },
+          "messages": { "type": "array", "items": { "$ref": "#/components/schemas/Message" } },
+          "files": { "type": "object", "additionalProperties": { "type": "string" }, "description": "Dateien als Digest-Map" },
+          "adapters": { "type": "object", "additionalProperties": { "type": "string" }, "description": "LoRA-Adapter als Digest-Map" },
+          "remote_host": { "type": "string", "description": "URL eines externen Ollama-Servers" },
+          "renderer": { "type": "string" },
+          "parser": { "type": "string" },
+          "requires": { "type": "string", "description": "Minimale Ollama-Version" },
+          "info": { "type": "object", "additionalProperties": true }
+        }
+      },
+      "ListResponse": {
+        "type": "object",
+        "properties": {
+          "models": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ListModelResponse" }
+          }
+        }
+      },
+      "ListModelResponse": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "llama3.2:latest" },
+          "model": { "type": "string" },
+          "remote_model": { "type": "string" },
+          "remote_host": { "type": "string" },
+          "modified_at": { "type": "string", "format": "date-time" },
+          "size": { "type": "integer", "format": "int64", "description": "Größe in Bytes" },
+          "digest": { "type": "string" },
+          "details": { "$ref": "#/components/schemas/ModelDetails" },
+          "capabilities": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "ProcessResponse": {
+        "type": "object",
+        "properties": {
+          "models": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ProcessModelResponse" }
+          }
+        }
+      },
+      "ProcessModelResponse": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "model": { "type": "string" },
+          "size": { "type": "integer", "format": "int64", "description": "RAM-Nutzung in Bytes" },
+          "digest": { "type": "string" },
+          "details": { "$ref": "#/components/schemas/ModelDetails" },
+          "expires_at": { "type": "string", "format": "date-time", "description": "Wann wird das Modell entladen" },
+          "size_vram": { "type": "integer", "format": "int64", "description": "VRAM-Nutzung in Bytes" },
+          "context_length": { "type": "integer" }
+        }
+      },
+      "StatusResponse": {
+        "type": "object",
+        "properties": {
+          "cloud": {
+            "type": "object",
+            "properties": {
+              "disabled": { "type": "boolean" },
+              "source": { "type": "string", "description": "Grund der Deaktivierung" }
+            }
+          }
+        }
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "email": { "type": "string", "format": "email" },
+          "name": { "type": "string" },
+          "bio": { "type": "string" },
+          "avatarurl": { "type": "string" },
+          "firstname": { "type": "string" },
+          "lastname": { "type": "string" },
+          "plan": { "type": "string", "example": "free", "description": "Abo-Plan (free, pro, ...)" }
+        }
+      },
+      "ModelRecommendationsResponse": {
+        "type": "object",
+        "properties": {
+          "recommendations": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ModelRecommendation" }
+          }
+        }
+      },
+      "ModelRecommendation": {
+        "type": "object",
+        "properties": {
+          "model": { "type": "string" },
+          "description": { "type": "string" },
+          "context_length": { "type": "integer" },
+          "max_output_tokens": { "type": "integer" },
+          "vram_bytes": { "type": "integer", "format": "int64" },
+          "required_plan": { "type": "string" }
+        }
+      },
+      "OpenAIChatRequest": {
+        "type": "object",
+        "required": ["model", "messages"],
+        "description": "OpenAI Chat Completions Request-Format.",
+        "properties": {
+          "model": { "type": "string" },
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": { "type": "string", "enum": ["system", "user", "assistant", "tool"] },
+                "content": { "oneOf": [{ "type": "string" }, { "type": "array" }] },
+                "tool_calls": { "type": "array" },
+                "tool_call_id": { "type": "string" }
+              }
+            }
+          },
+          "stream": { "type": "boolean", "default": false },
+          "temperature": { "type": "number" },
+          "top_p": { "type": "number" },
+          "max_tokens": { "type": "integer" },
+          "stop": { "oneOf": [{ "type": "string" }, { "type": "array", "items": { "type": "string" } }] },
+          "tools": { "type": "array" },
+          "tool_choice": { "oneOf": [{ "type": "string" }, { "type": "object" }] },
+          "response_format": { "type": "object" },
+          "seed": { "type": "integer" },
+          "logprobs": { "type": "boolean" },
+          "top_logprobs": { "type": "integer" },
+          "frequency_penalty": { "type": "number" },
+          "presence_penalty": { "type": "number" }
+        }
+      },
+      "OpenAIChatResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "object": { "type": "string", "example": "chat.completion" },
+          "created": { "type": "integer" },
+          "model": { "type": "string" },
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": { "type": "integer" },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "role": { "type": "string" },
+                    "content": { "type": "string" },
+                    "tool_calls": { "type": "array" }
+                  }
+                },
+                "finish_reason": { "type": "string", "enum": ["stop", "length", "tool_calls"] },
+                "logprobs": { "type": "object" }
+              }
+            }
+          },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "prompt_tokens": { "type": "integer" },
+              "completion_tokens": { "type": "integer" },
+              "total_tokens": { "type": "integer" }
+            }
+          }
+        }
+      },
+      "OpenAICompletionRequest": {
+        "type": "object",
+        "required": ["model", "prompt"],
+        "properties": {
+          "model": { "type": "string" },
+          "prompt": { "oneOf": [{ "type": "string" }, { "type": "array" }] },
+          "stream": { "type": "boolean" },
+          "max_tokens": { "type": "integer" },
+          "temperature": { "type": "number" },
+          "top_p": { "type": "number" },
+          "stop": { "oneOf": [{ "type": "string" }, { "type": "array", "items": { "type": "string" } }] },
+          "suffix": { "type": "string" }
+        }
+      },
+      "OpenAIModel": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "object": { "type": "string", "example": "model" },
+          "created": { "type": "integer" },
+          "owned_by": { "type": "string", "example": "library" }
+        }
+      },
+      "AnthropicMessagesRequest": {
+        "type": "object",
+        "required": ["model", "messages", "max_tokens"],
+        "description": "Anthropic Messages API Request-Format.",
+        "properties": {
+          "model": { "type": "string", "example": "claude3" },
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": { "type": "string", "enum": ["user", "assistant"] },
+                "content": { "oneOf": [{ "type": "string" }, { "type": "array" }] }
+              }
+            }
+          },
+          "max_tokens": { "type": "integer" },
+          "system": { "oneOf": [{ "type": "string" }, { "type": "array" }] },
+          "stream": { "type": "boolean" },
+          "temperature": { "type": "number" },
+          "top_p": { "type": "number" },
+          "top_k": { "type": "integer" },
+          "stop_sequences": { "type": "array", "items": { "type": "string" } },
+          "tools": { "type": "array" },
+          "tool_choice": { "type": "object" },
+          "thinking": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string", "enum": ["enabled", "disabled"] },
+              "budget_tokens": { "type": "integer" }
+            }
+          }
+        }
+      },
+      "AnthropicMessagesResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string", "example": "message" },
+          "role": { "type": "string", "example": "assistant" },
+          "model": { "type": "string" },
+          "content": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": { "type": "string", "enum": ["text", "tool_use", "thinking"] },
+                "text": { "type": "string" },
+                "thinking": { "type": "string" }
+              }
+            }
+          },
+          "stop_reason": { "type": "string", "enum": ["end_turn", "max_tokens", "stop_sequence", "tool_use"] },
+          "stop_sequence": { "type": "string" },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "input_tokens": { "type": "integer" },
+              "output_tokens": { "type": "integer" }
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": { "type": "string", "description": "Fehlermeldung" }
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Ungültige Anfrage",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/Error" }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Nicht autorisiert",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": { "type": "string" },
+                "signin_url": { "type": "string", "description": "URL zur Anmeldung bei ollama.com" }
+              }
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "Cloud-Funktion deaktiviert oder nicht erlaubt",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/Error" }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Modell nicht gefunden",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/Error" }
+          }
+        }
+      },
+      "ServiceUnavailable": {
+        "description": "Dienst vorübergehend nicht verfügbar",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/Error" }
+          }
+        }
+      }
+    }
+  }
+}

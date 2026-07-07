@@ -1,0 +1,26 @@
+{
+  "name": "glm-4.6:cloud",
+  "model": "glm-4.6:cloud",
+  "remote_model": "glm-4.6",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-01-23T16:47:02.683884892+01:00",
+  "size": 366,
+  "digest": "05277b76269f8831b289e8f11f1f46136f9214d9c0a6399f1b580003e74f887c",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "glm4",
+    "families": [
+      "glm4"
+    ],
+    "parameter_size": "355B",
+    "quantization_level": "FP8",
+    "context_length": 202752,
+    "embedding_length": 2048
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ]
+}

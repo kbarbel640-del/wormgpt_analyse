@@ -1,0 +1,13 @@
+  Model
+    Remote model    gemini-3-pro-preview      
+    Remote URL      https://ollama.com:443    
+    quantization                              
+
+  Capabilities
+    completion    
+    tools         
+    vision        
+    thinking      
+
+  Metadata
+

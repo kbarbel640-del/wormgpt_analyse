@@ -1,0 +1,24 @@
+{
+  "name": "openvoid/Void-Gemini:latest",
+  "model": "openvoid/Void-Gemini:latest",
+  "remote_model": "gemini-3-pro-preview",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-02-22T19:47:15.858943936+01:00",
+  "size": 363,
+  "digest": "91a1db042ba1f0f926377ed682ec44c1dfff0395d646d45da21009f6cd319a43",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "",
+    "families": null,
+    "parameter_size": "",
+    "quantization_level": "",
+    "context_length": 1048576
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "vision",
+    "thinking"
+  ]
+}

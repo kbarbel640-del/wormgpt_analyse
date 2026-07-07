@@ -1,0 +1,26 @@
+{
+  "name": "cogito-2.1:671b-cloud",
+  "model": "cogito-2.1:671b-cloud",
+  "remote_model": "cogito-2.1:671b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-01-23T09:24:00.032969321+01:00",
+  "size": 399,
+  "digest": "36c90b0682ed3662a53e63492eb9d7962140446d0d3fe66d927cf3691e3df1ae",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "deepseek2",
+    "families": [
+      "deepseek2"
+    ],
+    "parameter_size": "671.0B",
+    "quantization_level": "FP8_E4M3",
+    "context_length": 163840,
+    "embedding_length": 7168
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ]
+}

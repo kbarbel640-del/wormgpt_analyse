@@ -1,0 +1,26 @@
+{
+  "name": "gpt-oss:20b-cloud",
+  "model": "gpt-oss:20b-cloud",
+  "remote_model": "gpt-oss:20b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-01-23T16:47:07.503941992+01:00",
+  "size": 381,
+  "digest": "875e8e3a629ad3c2e66f1f1c461e3d140474212f44a34f4687ae1d927db41690",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "gptoss",
+    "families": [
+      "gptoss"
+    ],
+    "parameter_size": "20.9B",
+    "quantization_level": "MXFP4",
+    "context_length": 131072,
+    "embedding_length": 2880
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ]
+}

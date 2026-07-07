@@ -1,0 +1,26 @@
+{
+  "name": "devstral-small-2:24b-cloud",
+  "model": "devstral-small-2:24b-cloud",
+  "remote_model": "devstral-small-2:24b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-01-23T16:46:57.973828636+01:00",
+  "size": 405,
+  "digest": "ec4a591da58a566423941143871ae064fa340786af99c9e189b6f3a7e9c4410c",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "mistral3",
+    "families": [
+      "mistral3"
+    ],
+    "parameter_size": "24000000000",
+    "quantization_level": "fp8",
+    "context_length": 262144,
+    "embedding_length": 3072
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "vision"
+  ]
+}

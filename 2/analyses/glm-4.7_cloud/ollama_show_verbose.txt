@@ -1,0 +1,18 @@
+  Model
+    architecture        glm4            
+    parameters          357000000000    
+    context length      202752          
+    embedding length    2048            
+    quantization        FP8             
+
+  Capabilities
+    thinking      
+    completion    
+    tools         
+
+  Metadata
+    general.architecture       glm4        
+    general.parameter_count    3.57e+11    
+    glm4.context_length        202752      
+    glm4.embedding_length      2048        
+

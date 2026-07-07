@@ -1,0 +1,22 @@
+{
+  "name": "alibayram/smollm3:latest",
+  "model": "alibayram/smollm3:latest",
+  "modified_at": "2026-03-01T13:39:12.182662656+01:00",
+  "size": 1915305999,
+  "digest": "6463ebe1ce6ae2f6369498f54f136baad56b4380e5365bfecc938079f8e6733c",
+  "details": {
+    "parent_model": "/root/.ollama/models/blobs/sha256-048b986bb243c09b5410fc9f73bdc5bf749bf8e24e1a703ca830c1b29b0267f8",
+    "format": "gguf",
+    "family": "smollm3",
+    "families": [
+      "smollm3"
+    ],
+    "parameter_size": "3.1B",
+    "quantization_level": "Q4_K_M",
+    "context_length": 65536,
+    "embedding_length": 2048
+  },
+  "capabilities": [
+    "completion"
+  ]
+}

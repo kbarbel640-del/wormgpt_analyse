@@ -1,0 +1,18 @@
+  Model
+    architecture        nemotron_h_moe    
+    parameters          120000000000      
+    context length      262144            
+    embedding length    4096              
+    quantization        NVFP4             
+
+  Capabilities
+    completion    
+    thinking      
+    tools         
+
+  Metadata
+    general.architecture               nemotron_h_moe    
+    general.parameter_count            1.2e+11           
+    nemotron_h_moe.context_length      262144            
+    nemotron_h_moe.embedding_length    4096              
+

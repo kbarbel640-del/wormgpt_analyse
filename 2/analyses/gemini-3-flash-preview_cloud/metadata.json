@@ -1,0 +1,24 @@
+{
+  "name": "gemini-3-flash-preview:cloud",
+  "model": "gemini-3-flash-preview:cloud",
+  "remote_model": "gemini-3-flash-preview",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-01-23T16:47:00.327856808+01:00",
+  "size": 367,
+  "digest": "ebade0d316903752e67a73245aa10f4e1061b2fa42c0503bfc3569e5c7e8ec7b",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "",
+    "families": null,
+    "parameter_size": "",
+    "quantization_level": "",
+    "context_length": 1048576
+  },
+  "capabilities": [
+    "completion",
+    "vision",
+    "tools",
+    "thinking"
+  ]
+}

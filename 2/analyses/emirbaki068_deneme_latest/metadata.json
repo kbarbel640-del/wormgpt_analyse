@@ -1,0 +1,26 @@
+{
+  "name": "emirbaki068/deneme:latest",
+  "model": "emirbaki068/deneme:latest",
+  "remote_model": "gpt-oss:120b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-03-01T18:42:04.538827944+01:00",
+  "size": 384,
+  "digest": "569662207105c69bb0eca2f79a3fdf8691ad6301def477a5ec66f8e8bae237e3",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "gptoss",
+    "families": [
+      "gptoss"
+    ],
+    "parameter_size": "116.8B",
+    "quantization_level": "MXFP4",
+    "context_length": 131072,
+    "embedding_length": 2880
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ]
+}

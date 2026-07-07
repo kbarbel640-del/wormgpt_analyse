@@ -1,0 +1,26 @@
+{
+  "name": "ministral-3:8b-cloud",
+  "model": "ministral-3:8b-cloud",
+  "remote_model": "ministral-3:8b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-01-23T16:48:03.920688139+01:00",
+  "size": 392,
+  "digest": "a56a5396dfb9aa05654fb96f6150ed9b261f244a919f4db9c7739966321dfca3",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "mistral3",
+    "families": [
+      "mistral3"
+    ],
+    "parameter_size": "8000000000",
+    "quantization_level": "fp8",
+    "context_length": 262144,
+    "embedding_length": 4096
+  },
+  "capabilities": [
+    "completion",
+    "vision",
+    "tools"
+  ]
+}

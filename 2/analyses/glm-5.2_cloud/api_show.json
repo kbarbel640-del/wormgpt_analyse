@@ -1,0 +1,1 @@
+{"capabilities":["thinking","completion","tools"],"details":{"parent_model":"glm-5.2","format":"","family":"glm5.2","families":null,"parameter_size":"756162687872","quantization_level":""},"model_info":{"general.architecture":"glm5.2","general.parameter_count":756162687872,"glm5.2.context_length":1000000,"glm5.2.embedding_length":0},"modified_at":"2026-06-16T08:00:00-07:00"}

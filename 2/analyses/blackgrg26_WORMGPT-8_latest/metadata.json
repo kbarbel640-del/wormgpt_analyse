@@ -1,0 +1,17 @@
+{
+  "name": "blackgrg26/WORMGPT-8:latest",
+  "model": "blackgrg26/WORMGPT-8:latest",
+  "remote_model": "cogito-2.1:671b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-07-03T07:08:51.086765778+02:00",
+  "size": 42939,
+  "digest": "273238a7f1b4554e3bedba2ed3d4042e63333af3ff9f2dfa1168360b804d5e8f",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "",
+    "families": null,
+    "parameter_size": "",
+    "quantization_level": ""
+  }
+}

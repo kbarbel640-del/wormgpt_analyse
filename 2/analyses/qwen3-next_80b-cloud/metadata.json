@@ -1,0 +1,23 @@
+{
+  "name": "qwen3-next:80b-cloud",
+  "model": "qwen3-next:80b-cloud",
+  "remote_model": "qwen3-next:80b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-01-23T16:48:08.73501501+01:00",
+  "size": 340,
+  "digest": "f5ccd68d28728e6ae5c38c1a510bab65d09edaf89ddc2ba99f35f1cc2ef6711c",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "",
+    "families": null,
+    "parameter_size": "",
+    "quantization_level": "",
+    "context_length": 262144
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ]
+}

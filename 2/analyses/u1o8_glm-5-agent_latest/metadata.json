@@ -1,0 +1,23 @@
+{
+  "name": "u1o8/glm-5-agent:latest",
+  "model": "u1o8/glm-5-agent:latest",
+  "remote_model": "glm-5",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-03-01T18:43:12.179912446+01:00",
+  "size": 323,
+  "digest": "c313cd06593533865448bd609a95c40c6e13d87ddf2daeb3b8f342e1a6c34794",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "",
+    "families": null,
+    "parameter_size": "",
+    "quantization_level": "",
+    "context_length": 202752
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ]
+}

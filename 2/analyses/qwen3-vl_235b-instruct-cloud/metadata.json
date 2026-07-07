@@ -1,0 +1,26 @@
+{
+  "name": "qwen3-vl:235b-instruct-cloud",
+  "model": "qwen3-vl:235b-instruct-cloud",
+  "remote_model": "qwen3-vl:235b-instruct",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-01-23T16:48:13.444332383+01:00",
+  "size": 400,
+  "digest": "2bf9522f69612efb67124524b8676bf90a72e92cd20bcc8362de68a0b165b1d3",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "qwen3vl",
+    "families": [
+      "qwen3vl"
+    ],
+    "parameter_size": "235B",
+    "quantization_level": "FP8",
+    "context_length": 262144,
+    "embedding_length": 2048
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "vision"
+  ]
+}

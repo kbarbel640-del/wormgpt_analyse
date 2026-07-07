@@ -1,0 +1,12 @@
+  Model
+    Remote model    glm-5                     
+    Remote URL      https://ollama.com:443    
+    quantization                              
+
+  Capabilities
+    completion    
+    tools         
+    thinking      
+
+  Metadata
+

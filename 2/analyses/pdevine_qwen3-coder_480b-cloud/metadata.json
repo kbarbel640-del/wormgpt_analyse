@@ -1,0 +1,25 @@
+{
+  "name": "pdevine/qwen3-coder:480b-cloud",
+  "model": "pdevine/qwen3-coder:480b-cloud",
+  "remote_model": "qwen3-coder:480b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-03-01T18:42:48.586882043+01:00",
+  "size": 382,
+  "digest": "bc573ee877efc3c4b7d0848d0386e9c869ae78f412e4a6d66ef96ced10775de6",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "qwen3moe",
+    "families": [
+      "qwen3moe"
+    ],
+    "parameter_size": "480B",
+    "quantization_level": "BF16",
+    "context_length": 128000,
+    "embedding_length": 2048
+  },
+  "capabilities": [
+    "completion",
+    "tools"
+  ]
+}

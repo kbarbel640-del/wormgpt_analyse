@@ -1,0 +1,17 @@
+  Model
+    architecture        qwen3moe        
+    parameters          480000000000    
+    context length      262144          
+    embedding length    2048            
+    quantization        FP8             
+
+  Capabilities
+    completion    
+    tools         
+
+  Metadata
+    general.architecture         qwen3moe    
+    general.parameter_count      4.8e+11     
+    qwen3moe.context_length      262144      
+    qwen3moe.embedding_length    2048        
+

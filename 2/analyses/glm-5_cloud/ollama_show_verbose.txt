@@ -1,0 +1,18 @@
+  Model
+    architecture        glm5            
+    parameters          756162687872    
+    context length      202752          
+    embedding length    2048            
+    quantization        FP8             
+
+  Capabilities
+    thinking      
+    completion    
+    tools         
+
+  Metadata
+    general.architecture       glm5                 
+    general.parameter_count    7.56162687872e+11    
+    glm5.context_length        202752               
+    glm5.embedding_length      2048                 
+

@@ -1,0 +1,20 @@
+  Model
+    Remote model        mistral-large-3:675b      
+    Remote URL          https://ollama.com:443    
+    architecture        mistral3                  
+    parameters          675000000000              
+    context length      262144                    
+    embedding length    7168                      
+    quantization        fp8                       
+
+  Capabilities
+    completion    
+    vision        
+    tools         
+
+  Metadata
+    general.architecture         mistral3                
+    general.basename             mistral-large-3:675b    
+    mistral3.context_length      262144                  
+    mistral3.embedding_length    7168                    
+

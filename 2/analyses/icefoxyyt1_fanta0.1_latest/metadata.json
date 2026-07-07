@@ -1,0 +1,23 @@
+{
+  "name": "icefoxyyt1/fanta0.1:latest",
+  "model": "icefoxyyt1/fanta0.1:latest",
+  "remote_model": "minimax-m2.5",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-03-01T18:42:07.48483145+01:00",
+  "size": 337,
+  "digest": "c0d5751c800fd16b7cd21fce68e99e0db6d489d7196794f9a46b97b2f97036f5",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "",
+    "families": null,
+    "parameter_size": "",
+    "quantization_level": "",
+    "context_length": 202752
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ]
+}

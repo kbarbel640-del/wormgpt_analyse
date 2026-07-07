@@ -1,0 +1,25 @@
+{
+  "name": "gemma3:4b-cloud",
+  "model": "gemma3:4b-cloud",
+  "remote_model": "gemma3:4b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-02-22T19:18:03.591730961+01:00",
+  "size": 370,
+  "digest": "89c58fea54206bf968b98f99e7b5ed496bc9e992d19bce1b0af077072bb684a6",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "gemma3",
+    "families": [
+      "gemma3"
+    ],
+    "parameter_size": "4000000000",
+    "quantization_level": "bf16",
+    "context_length": 32768,
+    "embedding_length": 2560
+  },
+  "capabilities": [
+    "completion",
+    "vision"
+  ]
+}

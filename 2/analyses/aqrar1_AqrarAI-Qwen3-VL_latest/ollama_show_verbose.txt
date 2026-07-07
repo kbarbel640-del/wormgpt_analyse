@@ -1,0 +1,20 @@
+  Model
+    Remote model        qwen3-vl:235b-instruct    
+    Remote URL          https://ollama.com:443    
+    architecture        qwen3vl                   
+    parameters          235B                      
+    context length      262144                    
+    embedding length    2048                      
+    quantization        FP8                       
+
+  Capabilities
+    completion    
+    tools         
+    vision        
+
+  Metadata
+    general.architecture        qwen3vl                   
+    general.basename            qwen3-vl:235b-instruct    
+    qwen3vl.context_length      262144                    
+    qwen3vl.embedding_length    2048                      
+

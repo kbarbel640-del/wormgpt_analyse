@@ -1,0 +1,17 @@
+{
+  "name": "YuriiFominYoung/fable-5:latest",
+  "model": "YuriiFominYoung/fable-5:latest",
+  "remote_model": "gemma4:31b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-07-03T13:21:30.608702022+02:00",
+  "size": 188527,
+  "digest": "0e4bda992165aa149e214b9a2e35cf703e207059bf2d13a147d675bcd2ee0cd3",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "",
+    "families": null,
+    "parameter_size": "",
+    "quantization_level": ""
+  }
+}

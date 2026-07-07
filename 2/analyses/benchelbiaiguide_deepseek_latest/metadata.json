@@ -1,0 +1,26 @@
+{
+  "name": "benchelbiaiguide/deepseek:latest",
+  "model": "benchelbiaiguide/deepseek:latest",
+  "remote_model": "deepseek-v3.1:671b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-03-01T18:41:42.073801768+01:00",
+  "size": 405,
+  "digest": "d3749919e45f955731da7a7e76849e20f7ed310725d3b8b52822e811f55d0a90",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "deepseek2",
+    "families": [
+      "deepseek2"
+    ],
+    "parameter_size": "671.0B",
+    "quantization_level": "FP8_E4M3",
+    "context_length": 163840,
+    "embedding_length": 7168
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ]
+}

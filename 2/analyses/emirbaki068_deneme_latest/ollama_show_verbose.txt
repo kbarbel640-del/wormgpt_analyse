@@ -1,0 +1,20 @@
+  Model
+    Remote model        gpt-oss:120b              
+    Remote URL          https://ollama.com:443    
+    architecture        gptoss                    
+    parameters          116.8B                    
+    context length      131072                    
+    embedding length    2880                      
+    quantization        MXFP4                     
+
+  Capabilities
+    completion    
+    tools         
+    thinking      
+
+  Metadata
+    general.architecture       gptoss          
+    general.basename           gpt-oss:120b    
+    gptoss.context_length      131072          
+    gptoss.embedding_length    2880            
+

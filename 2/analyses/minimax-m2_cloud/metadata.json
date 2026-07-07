@@ -1,0 +1,26 @@
+{
+  "name": "minimax-m2:cloud",
+  "model": "minimax-m2:cloud",
+  "remote_model": "minimax-m2",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-01-23T16:47:56.652499035+01:00",
+  "size": 382,
+  "digest": "698ab6d56142621ba4c208e06cb65004035556a51c01dbd7d7bfca16af0e94c1",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "minimaxm2",
+    "families": [
+      "minimaxm2"
+    ],
+    "parameter_size": "230B",
+    "quantization_level": "FP8",
+    "context_length": 204800,
+    "embedding_length": 3072
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ]
+}

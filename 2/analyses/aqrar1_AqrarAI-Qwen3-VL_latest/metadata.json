@@ -1,0 +1,26 @@
+{
+  "name": "aqrar1/AqrarAI-Qwen3-VL:latest",
+  "model": "aqrar1/AqrarAI-Qwen3-VL:latest",
+  "remote_model": "qwen3-vl:235b-instruct",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-03-01T18:41:22.278779544+01:00",
+  "size": 400,
+  "digest": "2bf9522f69612efb67124524b8676bf90a72e92cd20bcc8362de68a0b165b1d3",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "qwen3vl",
+    "families": [
+      "qwen3vl"
+    ],
+    "parameter_size": "235B",
+    "quantization_level": "FP8",
+    "context_length": 262144,
+    "embedding_length": 2048
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "vision"
+  ]
+}

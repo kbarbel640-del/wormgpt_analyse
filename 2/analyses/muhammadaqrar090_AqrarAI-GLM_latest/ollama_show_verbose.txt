@@ -1,0 +1,20 @@
+  Model
+    Remote model        glm-4.6                   
+    Remote URL          https://ollama.com:443    
+    architecture        glm4                      
+    parameters          355B                      
+    context length      202752                    
+    embedding length    2048                      
+    quantization        FP8                       
+
+  Capabilities
+    completion    
+    tools         
+    thinking      
+
+  Metadata
+    general.architecture     glm4       
+    general.basename         glm-4.6    
+    glm4.context_length      202752     
+    glm4.embedding_length    2048       
+

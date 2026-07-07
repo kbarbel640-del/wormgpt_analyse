@@ -1,0 +1,23 @@
+{
+  "name": "ayushtiwari8888/glm-5:cloud",
+  "model": "ayushtiwari8888/glm-5:cloud",
+  "remote_model": "glm-5",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-03-01T18:41:31.641789956+01:00",
+  "size": 323,
+  "digest": "c313cd06593533865448bd609a95c40c6e13d87ddf2daeb3b8f342e1a6c34794",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "",
+    "families": null,
+    "parameter_size": "",
+    "quantization_level": "",
+    "context_length": 202752
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ]
+}

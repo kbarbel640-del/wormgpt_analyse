@@ -1,0 +1,26 @@
+{
+  "name": "basemdabbour/OllModraMoV2:latest",
+  "model": "basemdabbour/OllModraMoV2:latest",
+  "remote_model": "kimi-k2-thinking",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-03-01T18:41:38.5907978+01:00",
+  "size": 393,
+  "digest": "9752ffb77f53ac4d60b9d21712231f17550e46a4acd3d1c46d104ff2fb675cf5",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "deepseek2",
+    "families": [
+      "deepseek2"
+    ],
+    "parameter_size": "1T",
+    "quantization_level": "INT4",
+    "context_length": 262144,
+    "embedding_length": 2048
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ]
+}

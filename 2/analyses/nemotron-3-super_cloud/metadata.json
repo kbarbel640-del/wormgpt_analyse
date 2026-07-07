@@ -1,0 +1,23 @@
+{
+  "name": "nemotron-3-super:cloud",
+  "model": "nemotron-3-super:cloud",
+  "remote_model": "nemotron-3-super",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-07-03T03:48:42.941096541+02:00",
+  "size": 345,
+  "digest": "be3943c5a818be61a08f3563b971e392bfc12e506e296fb186c870f5c63377a4",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "",
+    "families": null,
+    "parameter_size": "",
+    "quantization_level": "",
+    "context_length": 262144
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ]
+}

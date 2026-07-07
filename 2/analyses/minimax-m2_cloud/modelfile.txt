@@ -1,0 +1,1 @@
+Error: minimax-m2 was retired at 2026-06-16 00:00:00 -0700 PDT (ref: d6bd8d02-62f9-4089-99f5-6bf0bb47ba6e)

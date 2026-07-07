@@ -1,0 +1,25 @@
+{
+  "name": "rnj-1:8b-cloud",
+  "model": "rnj-1:8b-cloud",
+  "remote_model": "rnj-1:8b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-01-23T16:48:15.903497196+01:00",
+  "size": 367,
+  "digest": "d8200a2fbf213883761c747c26bf2fdc01fe83f3ffed99a2e1a84ee41b620cd6",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "gemma3",
+    "families": [
+      "gemma3"
+    ],
+    "parameter_size": "8000000000",
+    "quantization_level": "fp16",
+    "context_length": 32768,
+    "embedding_length": 4096
+  },
+  "capabilities": [
+    "completion",
+    "tools"
+  ]
+}

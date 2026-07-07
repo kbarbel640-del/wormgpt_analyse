@@ -1,0 +1,19 @@
+  Model
+    Remote model        qwen3-coder:480b          
+    Remote URL          https://ollama.com:443    
+    architecture        qwen3moe                  
+    parameters          480B                      
+    context length      262144                    
+    embedding length    2048                      
+    quantization        BF16                      
+
+  Capabilities
+    completion    
+    tools         
+
+  Metadata
+    general.architecture         qwen3moe            
+    general.basename             qwen3-coder:480b    
+    qwen3moe.context_length      262144              
+    qwen3moe.embedding_length    2048                
+

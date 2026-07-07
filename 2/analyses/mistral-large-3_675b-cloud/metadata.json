@@ -1,0 +1,26 @@
+{
+  "name": "mistral-large-3:675b-cloud",
+  "model": "mistral-large-3:675b-cloud",
+  "remote_model": "mistral-large-3:675b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-01-23T12:20:21.759986037+01:00",
+  "size": 406,
+  "digest": "3130fd5a5a1eb4b208be74bf0273357c14c3576c6ba8d78f98b960e91919d77b",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "mistral3",
+    "families": [
+      "mistral3"
+    ],
+    "parameter_size": "675000000000",
+    "quantization_level": "fp8",
+    "context_length": 262144,
+    "embedding_length": 7168
+  },
+  "capabilities": [
+    "completion",
+    "vision",
+    "tools"
+  ]
+}

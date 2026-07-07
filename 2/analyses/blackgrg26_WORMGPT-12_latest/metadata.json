@@ -1,0 +1,17 @@
+{
+  "name": "blackgrg26/WORMGPT-12:latest",
+  "model": "blackgrg26/WORMGPT-12:latest",
+  "remote_model": "qwen3-coder-next",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-07-03T07:08:30.731710564+02:00",
+  "size": 34667,
+  "digest": "69e323106e6614580ed7466e117287f11ac608dfe799df1f63a82864bfe62523",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "",
+    "families": null,
+    "parameter_size": "",
+    "quantization_level": ""
+  }
+}

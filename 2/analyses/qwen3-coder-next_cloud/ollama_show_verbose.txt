@@ -1,0 +1,17 @@
+  Model
+    architecture        qwen3next      
+    parameters          80000000000    
+    context length      262144         
+    embedding length    2048           
+    quantization        FP8            
+
+  Capabilities
+    completion    
+    tools         
+
+  Metadata
+    general.architecture          qwen3next    
+    general.parameter_count       8e+10        
+    qwen3next.context_length      262144       
+    qwen3next.embedding_length    2048         
+

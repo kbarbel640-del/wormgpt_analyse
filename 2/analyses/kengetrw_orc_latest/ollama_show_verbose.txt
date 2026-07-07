@@ -1,0 +1,20 @@
+  Model
+    Remote model        kimi-k2-thinking          
+    Remote URL          https://ollama.com:443    
+    architecture        deepseek2                 
+    parameters          1T                        
+    context length      262144                    
+    embedding length    2048                      
+    quantization        INT4                      
+
+  Capabilities
+    completion    
+    tools         
+    thinking      
+
+  Metadata
+    deepseek2.context_length      262144              
+    deepseek2.embedding_length    2048                
+    general.architecture          deepseek2           
+    general.basename              kimi-k2-thinking    
+

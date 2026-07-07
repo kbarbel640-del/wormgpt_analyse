@@ -1,0 +1,13 @@
+  Model
+    Remote model    kimi-k2.5                 
+    Remote URL      https://ollama.com:443    
+    quantization                              
+
+  Capabilities
+    completion    
+    tools         
+    thinking      
+    vision        
+
+  Metadata
+

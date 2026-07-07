@@ -1,0 +1,18 @@
+  Model
+    architecture        deepseek3.2     
+    parameters          671000000000    
+    context length      163840          
+    embedding length    7168            
+    quantization        FP8             
+
+  Capabilities
+    completion    
+    tools         
+    thinking      
+
+  Metadata
+    deepseek3.2.context_length      163840         
+    deepseek3.2.embedding_length    7168           
+    general.architecture            deepseek3.2    
+    general.parameter_count         6.71e+11       
+

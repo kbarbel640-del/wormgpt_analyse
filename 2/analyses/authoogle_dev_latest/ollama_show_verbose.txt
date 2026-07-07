@@ -1,0 +1,20 @@
+  Model
+    Remote model        devstral-small-2:24b      
+    Remote URL          https://ollama.com:443    
+    architecture        mistral3                  
+    parameters          24000000000               
+    context length      262144                    
+    embedding length    3072                      
+    quantization        fp8                       
+
+  Capabilities
+    completion    
+    tools         
+    vision        
+
+  Metadata
+    general.architecture         mistral3                
+    general.basename             devstral-small-2:24b    
+    mistral3.context_length      262144                  
+    mistral3.embedding_length    3072                    
+

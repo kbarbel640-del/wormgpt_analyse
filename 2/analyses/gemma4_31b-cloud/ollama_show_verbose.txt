@@ -1,0 +1,19 @@
+  Model
+    architecture        gemma4         
+    parameters          32682372656    
+    context length      262144         
+    embedding length    5376           
+    quantization        BF16           
+
+  Capabilities
+    completion    
+    thinking      
+    tools         
+    vision        
+
+  Metadata
+    gemma4.context_length      262144              
+    gemma4.embedding_length    5376                
+    general.architecture       gemma4              
+    general.parameter_count    3.2682372656e+10    
+

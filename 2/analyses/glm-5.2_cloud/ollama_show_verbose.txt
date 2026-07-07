@@ -1,0 +1,18 @@
+  Model
+    architecture        glm5.2          
+    parameters          756162687872    
+    context length      1000000         
+    embedding length    0               
+    quantization                        
+
+  Capabilities
+    thinking      
+    completion    
+    tools         
+
+  Metadata
+    general.architecture       glm5.2               
+    general.parameter_count    7.56162687872e+11    
+    glm5.2.context_length      1e+06                
+    glm5.2.embedding_length    0                    
+

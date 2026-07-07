@@ -1,0 +1,17 @@
+{
+  "name": "blackgrg26/WORMGPT-14:latest",
+  "model": "blackgrg26/WORMGPT-14:latest",
+  "remote_model": "ministral-3:14b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-07-03T07:08:41.516739812+02:00",
+  "size": 37282,
+  "digest": "f9809643910ce9aa1b73bf92062f8c57e91faab3c392bf4e79a0c832f0e8f2bd",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "",
+    "families": null,
+    "parameter_size": "",
+    "quantization_level": ""
+  }
+}

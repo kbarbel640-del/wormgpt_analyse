@@ -1,0 +1,17 @@
+{
+  "name": "alarksahu388/wormgpt480b:latest",
+  "model": "alarksahu388/wormgpt480b:latest",
+  "remote_model": "qwen3-coder:480b",
+  "remote_host": "https://ollama.com:443",
+  "modified_at": "2026-07-05T14:02:24.908063535+02:00",
+  "size": 34513,
+  "digest": "5bc8c465269ce5a323c2ce2dc81659b5698e056570df6cb1415988b7813b00b6",
+  "details": {
+    "parent_model": "",
+    "format": "",
+    "family": "",
+    "families": null,
+    "parameter_size": "",
+    "quantization_level": ""
+  }
+}

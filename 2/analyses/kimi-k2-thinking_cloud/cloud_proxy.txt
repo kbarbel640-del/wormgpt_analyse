@@ -1,0 +1,2 @@
+⚠️ Modell ist ein Cloud-Proxy (keine lokale Datei).
+remote_host: https://ollama.com:443
